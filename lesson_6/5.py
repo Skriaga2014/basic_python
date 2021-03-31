@@ -32,6 +32,8 @@
 Проверить работу скрипта.
 '''
 
+# python3 5.py name_base hobby_base new_base
+
 from sys import argv
 
 with open(argv[1], 'r', encoding='utf-8') as users, \
