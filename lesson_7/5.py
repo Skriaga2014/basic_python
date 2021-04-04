@@ -34,18 +34,26 @@
 # принимает число, возвращает округление до (10 ** x) в большую сторону
 def get_round_size(path):
     size = os.path.getsize(path)
-    size_round = 10 ** len(str(size))
-    if size == size_round / 10:
-        size_round = size
-    return size_round
+    if size == 0:
+        size_round = 0
+    elif size == 1:
+        size_round = 10
+    else:
+        size_round = 10 ** len(str(size))
+        if size == size_round / 10:
+            size_round = size
+
+    ext = os.path.splitext(path)[-1]
+    return size_round, ext
 
 
 import os
+import json
 
 # path = выбранная папка
-path = os.path.join(os.getcwd(), '../')
+start_path = os.path.join(os.getcwd(), '../')
 
-temp_list = os.walk(path)
+temp_list = os.walk(start_path)
 temp_list = ((os.path.join(i[0], m) for m in i[-1]) for i in temp_list if len(i[-1]) > 0)
 
 path_list = []
@@ -53,11 +61,16 @@ path_list = []
 
 dict_size = {}
 for path in path_list:
-    round = get_round_size(path)
+    round, ext = get_round_size(path)
     if round in dict_size:
-        dict_size[round] += 1
+        dict_size[round][0] += 1
+        dict_size[round][1].append(ext)
     else:
-        dict_size[round] = 1
+        dict_size[round] = [1, [ext]]
 
 for item in sorted(dict_size):
+    dict_size[item] = (dict_size[item][0], list(set(dict_size[item][1])))
     print(f'{item}: {dict_size[item]}')
+
+with open(os.path.join(start_path, '_summary.json'), 'w') as _summary:
+    json.dump(dict_size, _summary)
