@@ -20,12 +20,12 @@ import time
 class TrafficLight:
 
     def __init__(self, color, time):
-        self.color = color
-        self.time = time
+        self.__color = color
+        self.__time = time
 
     def running(self):
-        for i in reversed(range(self.time)):
-            print(f'{self.color}: {i + 1}')
+        for i in reversed(range(self.__time)):
+            print(f'{self.__color}: {i + 1}')
             time.sleep(1)
 
 red = TrafficLight('red', 7)

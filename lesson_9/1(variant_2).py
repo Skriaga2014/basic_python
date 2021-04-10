@@ -18,12 +18,12 @@
 import time
 
 class TrafficLight:
-    color = {'yellow': 2, 'red': 7, 'green': 5}
+    __color = {'yellow': 2, 'red': 7, 'green': 5}
 
     def running(self):
         actions = ['red', 'yellow', 'green', 'yellow']
         for action in actions:
-            timer = self.color[action]
+            timer = self.__color[action]
             for i in reversed(range(timer)):
                 print(f'{action}: {i + 1}')
                 time.sleep(1)
