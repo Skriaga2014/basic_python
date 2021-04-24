@@ -28,7 +28,7 @@ class Storage_Line:
         self.qlt_shop = qlt_shop
         self.obj = obj
 
-    @property
+
     def show_qlt(self):
         print('qlt storage:', self.qlt_storage)
         print('qlt shop:', self.qlt_shop)
@@ -88,12 +88,15 @@ base = {10056: {'qlt_storage': 86, 'qlt_shop': 2,
                 'obj': Printer(10057, 'Canon', 'z540', 5, 150, 60)}}
 
 storage1 = Storage(base)
+# показывает характеристики товара по указанному id
 print(storage1.base[10056].obj)
 print('before moving:')
-storage1.base[10056].show_qlt
+# показывает кол-во товара с указанным id на складе и в магазине
+storage1.base[10056].show_qlt()
+# перемещение товара (id товара, количество товара, куда перемещение)
 storage1.moving(10056, 3, 'to_shop')
 print('after moving:')
-storage1.base[10056].show_qlt
+storage1.base[10056].show_qlt()
 
 
 
